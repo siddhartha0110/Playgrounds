@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+<h1><%= game.name%></h1>
+<img src="<%= game.image%>">
+<p>
+    <%= game.description%>
+</p>
+<p>
+    <a class="btn btn-success" href="/playgrounds/<%=game._id%>/comments/new"> Add Comments About This Game</a>
+</p>
+
+<% game.comments.forEach(function(comment){%>
+    <p>
+        <b><%= comment.author %></b>-<%= comment.text%>
+    </p>
+<%})%>
+
+<% include ../partials/footer %>

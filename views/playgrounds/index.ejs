@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome To The Games Page</h1>
+            <p>We Have The Best Hand-Picked Games From Around The World</p>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/playgrounds/new">Add New Playground</a>
+            </p>
+        </div>    
+    </header>
+    <div class="row" style="display:flex; flex-wrap:wrap;">
+        <% games.forEach(function(game){%>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                 <img src="<%=game.image %>">
+                 <div class="caption">
+                      <h4><%= game.name%></h4>  
+                </div>
+                <p>
+                    <a href="/playgrounds/<%= game._id%>" class="btn btn-primary">More Info</a>
+                </p>
+                </div>                
+            </div>       
+            <%})%>
+    </div>       
+     
+</div>
+<% include ../partials/footer %>
