@@ -1,17 +1,47 @@
 <% include ../partials/header %>
-<h1><%= game.name%></h1>
-<img src="<%= game.image%>">
-<p>
-    <%= game.description%>
-</p>
-<p>
-    <a class="btn btn-success" href="/playgrounds/<%=game._id%>/comments/new"> Add Comments About This Game</a>
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Category</p>
+            <div class="list-group">
+                <li class="list-group-item active">Action</li>
+                <li class="list-group-item">Adventure</li>
+                <li class="list-group-item">Horror</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= game.image%>">
+                <div class="caption-full">
+                    <h4 class="pull-right">Price:₹5000</h4>
+                    <h2><a><%= game.name%></a></h2>
+                    <p>
+                        <%= game.description%>
+                    </p>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/playgrounds/<%=game._id%>/comments/new"> Your Review Here</a>
+                </div>
+                <% game.comments.forEach(function(comment){%>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b><%= comment.author %></b>
+                            <span class="pull-right">2 days ago</span>
+                            <p>
+                            <%= comment.text%>
+                            </p>
+                        </div>        
+                    </div>
+                    
+                <%})%>
+                
+            </div>
+        </div>
+    </div>
+</div>
+ 
 
-<% game.comments.forEach(function(comment){%>
-    <p>
-        <b><%= comment.author %></b>-<%= comment.text%>
-    </p>
-<%})%>
 
 <% include ../partials/footer %>
