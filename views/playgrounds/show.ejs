@@ -18,6 +18,9 @@
                     <p>
                         <%= game.description%>
                     </p>
+                    <p>Added By:
+                        <em><%= game.author.username %></em>
+                    </p>
                 </div>
             </div>
             <div class="well">
@@ -27,7 +30,7 @@
                 <% game.comments.forEach(function(comment){%>
                     <div class="row">
                         <div class="col-md-12">
-                            <b><%= comment.author %></b>
+                            <b><%= comment.author.username %></b>
                             <span class="pull-right">2 days ago</span>
                             <p>
                             <%= comment.text%>
@@ -42,6 +45,4 @@
     </div>
 </div>
  
-
-
 <% include ../partials/footer %>

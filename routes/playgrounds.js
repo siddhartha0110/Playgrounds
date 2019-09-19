@@ -12,11 +12,15 @@ router.get("/",function(req,res){
     });
 });
 
-router.post("/",function(req,res){
+router.post("/",isLoggedIn,function(req,res){
     var name=req.body.name;
     var image=req.body.image;
     var desc=req.body.description;
-    var newPlayground={name:name,image:image,description:desc};
+    var author={
+        id:req.user._id,
+        username:req.user.username
+    }
+    var newPlayground={name:name,image:image,description:desc,author:author};
     Plays.create(newPlayground,function(err,newadd){
         if(err)
         console.log("Error");
@@ -26,7 +30,7 @@ router.post("/",function(req,res){
     
 });
 
-router.get("/new",function(req,res){
+router.get("/new",isLoggedIn,function(req,res){
     res.render("playgrounds/new");
 });
 
@@ -40,5 +44,13 @@ router.get("/:id",function(req,res){
         }
     });
 });
+
+//MiddleWare
+function isLoggedIn(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
 
 module.exports=router;

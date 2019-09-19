@@ -23,40 +23,40 @@ var data = [
 function seedDB(){
    //Remove all campgrounds
    Plays.remove({}, function(err){
-        if(err){
-            console.log(err);
-        }
-        console.log("removed campgrounds!");
-        Comment.remove({}, function(err) {
-            if(err){
-                console.log(err);
-            }
-            console.log("removed comments!");
-             //add a few campgrounds
-            data.forEach(function(seed){
-                Plays.create(seed, function(err, games){
-                    if(err){
-                        console.log(err)
-                    } else {
-                        console.log("added a campground");
-                        //create a comment
-                        Comment.create(
-                            {
-                                text: "Galat Hi Game Banaya Hai Bhai",
-                                author: "MishraJi"
-                            }, function(err, comment){
-                                if(err){
-                                    console.log(err);
-                                } else {
-                                    games.comments.push(comment);
-                                    games.save();
-                                    console.log("Created new comment");
-                                }
-                            });
-                    }
-                });
-            });
-        });
+        //if(err){
+        //    console.log(err);
+        //}
+        //console.log("removed campgrounds!");
+        //Comment.remove({}, function(err) {
+        //    if(err){
+        //        console.log(err);
+        //    }
+        //    console.log("removed comments!");
+        //     //add a few campgrounds
+        //    data.forEach(function(seed){
+        //        Plays.create(seed, function(err, games){
+        //            if(err){
+        //                console.log(err)
+        //            } else {
+        //                console.log("added a campground");
+        //                //create a comment
+        //                Comment.create(
+        //                    {
+        //                        text: "Galat Hi Game Banaya Hai Bhai",
+        //                        author: "MishraJi"
+        //                    }, function(err, comment){
+        //                        if(err){
+        //                            console.log(err);
+        //                        } else {
+        //                            games.comments.push(comment);
+        //                            games.save();
+        //                            console.log("Created new comment");
+        //                        }
+        //                    });
+        //            }
+        //        });
+        //    });
+        //});
     }); 
 }
 module.exports = seedDB;
