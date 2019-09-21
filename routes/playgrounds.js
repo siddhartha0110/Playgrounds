@@ -29,11 +29,11 @@ router.post("/",isLoggedIn,function(req,res){
     })
     
 });
-
+//Add New Game
 router.get("/new",isLoggedIn,function(req,res){
     res.render("playgrounds/new");
 });
-
+//Show Comments
 router.get("/:id",function(req,res){
     Plays.findById(req.params.id).populate("comments").exec(function(err,find){
         if(err)
@@ -45,6 +45,35 @@ router.get("/:id",function(req,res){
     });
 });
 
+//Edit Games
+router.get("/:id/edit",checkGameOwner,function(req,res){
+    //user login check
+        Plays.findById(req.params.id,function(err,foundgame){
+                 
+                res.render("playgrounds/edit",{game:foundgame});
+
+         });
+    
+}); 
+//Update Games
+router.put("/:id",checkGameOwner,function(req,res){
+    Plays.findByIdAndUpdate(req.params.id,req.body.game,function(err,updatedGame){
+        if(err)
+        res.redirect("/playgrounds");
+        else{
+            res.redirect("/playgrounds/"+req.params.id);
+        }
+    })
+})
+//Delete Game
+router.delete("/:id",checkGameOwner,function(req,res){
+    Plays.findByIdAndRemove(req.params.id,function(err){
+        if(err)
+        res.redirect("/playgrounds");
+        else
+        res.redirect("/playgrounds");
+    });
+});
 //MiddleWare
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
@@ -53,4 +82,26 @@ function isLoggedIn(req,res,next){
     res.redirect("/login");
 }
 
+function checkGameOwner(req,res,next)
+{
+    if(req.isAuthenticated())
+    {  
+        Plays.findById(req.params.id,function(err,foundgame){
+            if(err){
+                res.redirect("back");
+            }
+            else{
+                 //check if game is added by the current user 
+                if(foundgame.author.id.equals(req.user._id))
+                next();
+                else
+                res.redirect("back");
+
+            }
+        });
+    }
+    else{
+        res.redirect("back");
+    }
+}
 module.exports=router;

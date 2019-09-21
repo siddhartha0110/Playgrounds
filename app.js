@@ -5,6 +5,7 @@ var express=require("express"),
     Plays=require("./models/plays"),
     Comment=require("./models/comments"),
     seedDB=require("./seeds"),
+    methodOverride=require("method-override"),
     passport=require("passport"),
     User=require("./models/user"),
     LocalStrategy=require("passport-local");
@@ -16,7 +17,7 @@ mongoose.connect("mongodb://localhost:27017/playgrounds",{useNewUrlParser:true})
 app.use(bodyparser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
-
+app.use(methodOverride("_method"));
 //seedDB(); Database Seeding
 
 /*----------------------------------

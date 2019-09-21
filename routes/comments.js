@@ -42,6 +42,36 @@ router.post("/",isLoggedIn,function(req,res){
         
     })
 });
+//Comment Edit Route
+router.get("/:comment_id/edit",checkCommentOwner,function(req,res){
+    Comment.findById(req.params.comment_id,function(err,found){
+        if(err)
+        res.redirect("back");
+        else
+        res.render("comments/edit",{game_id:req.params.id,comment:found});    
+    });
+    
+});
+
+//Comment Update Route
+router.put("/:comment_id",checkCommentOwner,function(req,res){
+    Comment.findByIdAndUpdate(req.params.comment_id,req.body.comment,function(err,updated){
+        if(err)
+        res.redirect("back")
+        else
+        res.redirect("/playgrounds/"+req.params.id);
+    });
+});
+
+//Comment Delete Route
+router.delete("/:comment_id",checkCommentOwner,function(req,res){
+    Comment.findByIdAndDelete(req.params.comment_id,function(error){
+        if(error)
+        res.redirect("back");
+        else
+        res.redirect("/playgrounds/"+req.params.id);
+    })
+});
 
 //MiddleWare
 function isLoggedIn(req,res,next){
@@ -49,5 +79,27 @@ function isLoggedIn(req,res,next){
         return next();
     }
     res.redirect("/login");
+}
+function checkCommentOwner(req,res,next)
+{
+    if(req.isAuthenticated())
+    {  //if user is authenticated
+        Comment.findById(req.params.comment_id,function(err,foundcomment){
+            if(err){
+                res.redirect("back");
+            }
+            else{
+                 //check if game is comment by the current user 
+                if(foundcomment.author.id.equals(req.user._id))
+                next();
+                else
+                res.redirect("back");
+
+            }
+        });
+    }
+    else{
+        res.redirect("back");
+    }
 }
 module.exports=router;
