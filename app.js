@@ -8,16 +8,19 @@ var express=require("express"),
     methodOverride=require("method-override"),
     passport=require("passport"),
     User=require("./models/user"),
-    LocalStrategy=require("passport-local");
+    LocalStrategy=require("passport-local"),
+    flash=require("connect-flash");
 
 var commentRoutes=require("./routes/comments");
 var playgroundRoutes=require("./routes/playgrounds");
 var indexRoutes=require("./routes/index");
+
 mongoose.connect("mongodb://localhost:27017/playgrounds",{useNewUrlParser:true});
 app.use(bodyparser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
 app.use(methodOverride("_method"));
+app.use(flash());
 //seedDB(); Database Seeding
 
 /*----------------------------------
@@ -36,6 +39,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req,res,next){
     res.locals.currentUser=req.user;
+    res.locals.error=req.flash("error");
+    res.locals.success=req.flash("success");
     next();
 });
 

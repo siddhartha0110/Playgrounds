@@ -11,20 +11,21 @@ router.get("/",function(req,res){
 ---------------------------------*/
 router.get("/register",function(req,res){
     res.render("register");
-})
+});
 
 router.post("/register",function(req,res){
     var newUser=new User({username:req.body.username});
     User.register(newUser,req.body.password,function(err,user){
         if(err){
-            console.log(err);
+            req.flash("error",err.message);
             return res.render("register");
         }
         passport.authenticate("local")(req,res,function(){
+            req.flash("success","Welcome To Gaming Hub "+user.username);
             res.redirect("/playgrounds");
         });
     })
-})
+});
 
 router.get("/login",function(req,res){
     res.render("login");
@@ -37,15 +38,9 @@ router.post("/login",passport.authenticate("local",{
     
 });
 
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
-
 router.get("/logout",function(req,res){
     req.logOut(); 
+    req.flash("success","Successfully Logged Out");
     res.redirect("/playgrounds");
     console.log("Successfully Logged Out!!!");
     

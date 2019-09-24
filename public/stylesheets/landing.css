@@ -1,0 +1,80 @@
+body {
+    background-color: #000;
+}
+
+#landing-header {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+}
+
+#landing-header h1 {
+    color: burlywood;
+}
+.slideshow { 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.slideshow li { 
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    z-index: 0;
+    animation: imageAnimation 50s linear infinite; 
+}
+
+
+.slideshow li:nth-child(1) { 
+    background-image: url(https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/mw-reveal-05-wm-1559292483.jpg); 
+}
+.slideshow li:nth-child(2) { 
+    background-image: url(https://gamespot1.cbsistatic.com/uploads/original/104/1049837/3331131-pubg-review-thumb-nologo.jpg);
+    animation-delay: 10s; 
+}
+.slideshow li:nth-child(3) { 
+    background-image: url(https://i.redd.it/7oxe2g7t0y411.jpg);
+    animation-delay: 20s; 
+}
+.slideshow li:nth-child(4) { 
+    background-image: url(https://s3.dexerto.com/thumbnails/_thumbnailLarge/155847/grand-theft-auto-new-suv-and-game-mode.jpg);
+    animation-delay: 30s; 
+}
+.slideshow li:nth-child(5) { 
+    background-image: url(https://o.aolcdn.com/images/dims?quality=85&image_uri=https%3A%2F%2Fs.aolcdn.com%2Fhss%2Fstorage%2Fmidas%2Ff1ca565f6e8d3e3be1a8f2934c0bf16f%2F206441337%2FFIFA19_NEYMAR_HERO_GEN4_HIRES_WM.jpg&client=amp-blogside-v2&signature=9c53f1bd10462c64143808efbb3c8b5d0d656874);
+    animation-delay: 40s; 
+}
+
+@keyframes imageAnimation { 
+    0% { 
+      opacity: 0; 
+      animation-timing-function: ease-in;
+    }
+    10% {
+      opacity: 1;
+      animation-timing-function: ease-out;
+    }
+    20% {
+      opacity: 1
+    }
+    30% {
+      opacity: 0
+    }
+}
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}
