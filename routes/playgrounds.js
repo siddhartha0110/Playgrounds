@@ -17,11 +17,12 @@ router.post("/",middleware.isLoggedIn,function(req,res){
     var name=req.body.name;
     var image=req.body.image;
     var desc=req.body.description;
+    var price=req.body.price
     var author={
         id:req.user._id,
         username:req.user.username
     }
-    var newPlayground={name:name,image:image,description:desc,author:author};
+    var newPlayground={name:name,image:image,description:desc,price:price,author:author};
     Plays.create(newPlayground,function(err,newadd){
         if(err)
         console.log("Error");

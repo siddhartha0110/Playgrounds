@@ -9,12 +9,15 @@
                 <li class="list-group-item">Adventure</li>
                 <li class="list-group-item">Horror</li>
             </div>
+            <p>
+                <a class="btn btn-info" href="/playgrounds">Back To Games</a>
+            </p>
         </div>
         <div class="col-md-9">
             <div class="thumbnail">
                 <img class="img-responsive" src="<%= game.image%>">
                 <div class="caption-full">
-                    <h4 class="pull-right">Price:₹5000</h4>
+                    <h4 class="pull-right">₹<%=game.price%></h4>
                     <h2><a><%= game.name%></a></h2>
                     <p>
                         <%= game.description%>
@@ -28,6 +31,7 @@
                         <button class="btn btn-danger" >Delete This Game </button>
                     </form>
                     <%}%>
+                   
                 </div>
             </div>
             <div class="well">

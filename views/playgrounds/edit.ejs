@@ -10,8 +10,11 @@
                         <div class="form-group">
                             <input class="form-control" type="text" name="game[image]" value="<%=game.image%>">
                         </div>
-                        <div>
+                        <div class="form-group">
                             <input class="form-control" type="text" name="game[description]" value="<%=game.description%>">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="number" name="game[price]" value="<%= game.price%>" min="100" step="100">
                         </div>
                         <div class="form-group">
                             <button class="btn btn-md btn-primary btn-block" style="margin-top: 15px;" >Submit</button>
