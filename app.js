@@ -48,7 +48,9 @@ app.use("/playgrounds/:id/comments",commentRoutes);
 app.use("/playgrounds",playgroundRoutes);
 app.use(indexRoutes);
 
-app.listen(3000,function(){
+const PORT=process.env.PORT || 3000
+
+app.listen(PORT,function(){
     console.log("Server Has Started");
     
 });
